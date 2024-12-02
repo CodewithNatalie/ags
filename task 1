@@ -1,0 +1,151 @@
+#include <iostream>
+using namespace std;
+
+class stack {
+private:
+    int top;
+    int arr[6];
+
+public:
+    // Constructor
+    stack() {
+        top = -1;  // Initialize top to -1 (stack is empty)
+        for (int i = 0; i < 6; i++) {
+            arr[i] = 0;  // Initialize array elements to 0
+        }
+    }
+
+    // Check if the stack is empty
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    // Check if the stack is full
+    bool isFull() {
+        return top == 5;
+    }
+
+    // Push an element onto the stack
+    void push(int val) {
+        if (isFull()) {
+            cout << "Stack overflow!" << endl;
+        } else {
+            top++;
+            arr[top] = val;
+        }
+    }
+
+    // Pop an element from the stack
+    int pop() {
+        if (isEmpty()) {
+            cout << "Stack underflow!" << endl;
+            return -1;
+        } else {
+            int popnum = arr[top];
+            arr[top] = 0;
+            top--;
+            return popnum;
+        }
+    }
+
+    // Count the number of elements in the stack
+    int count() {
+        return top + 1;
+    }
+
+    // Peek at a specific position
+    int peek(int pos) {
+        if (pos < 0 || pos > top) {
+            cout << "Invalid position or stack underflow!" << endl;
+            return -1;
+        } else {
+            return arr[pos];
+        }
+    }
+
+    // Change the value at a specific position
+    void change(int pos, int val) {
+        if (pos < 0 || pos > top) {
+            cout << "Invalid position!" << endl;
+        } else {
+            arr[pos] = val;
+            cout << "Value changed at position " << pos << "." << endl;
+        }
+    }
+
+    // Display all stack elements
+    void display() {
+        cout << "All values in the stack are:" << endl;
+        for (int i = top; i >= 0; i--) {
+            cout << arr[i] << endl;
+        }
+    }
+};
+
+int main() {
+    stack s;
+    int option, position, value;
+
+    do {
+        cout << "\nWhat operation do you want to perform? Select an option (Enter 0 to exit):" << endl;
+        cout << "1. push()" << endl;
+        cout << "2. pop()" << endl;
+        cout << "3. isEmpty()" << endl;
+        cout << "4. isFull()" << endl;
+        cout << "5. peek()" << endl;
+        cout << "6. count()" << endl;
+        cout << "7. change()" << endl;
+        cout << "8. display()" << endl;
+        cout << "9. Clear screen" << endl;
+
+        cin >> option;
+
+        switch (option) {
+        case 0:
+            cout << "Exiting program..." << endl;
+            break;
+        case 1:
+            cout << "Enter a value to push into the stack: ";
+            cin >> value;
+            s.push(value);
+            break;
+        case 2:
+            cout << "Pop function called. Popped value: " << s.pop() << endl;
+            break;
+        case 3:
+            cout << (s.isEmpty() ? "Stack is empty." : "Stack is not empty.") << endl;
+            break;
+        case 4:
+            cout << (s.isFull() ? "Stack is full." : "Stack is not full.") << endl;
+            break;
+        case 5:
+            cout << "Enter the position of the value to peek: ";
+            cin >> position;
+            cout << "Value at position " << position << ": " << s.peek(position) << endl;
+            break;
+        case 6:
+            cout << "Count function called. The number of items in the stack is: " << s.count() << endl;
+            break;
+        case 7:
+            cout << "Enter the position of the item to be changed: ";
+            cin >> position;
+            cout << "Enter the new value: ";
+            cin >> value;
+            s.change(position, value);
+            break;
+        case 8:
+            cout << "Display function called." << endl;
+            s.display();
+            break;
+        case 9:
+            system("cls"); // For Windows. Use "system(\"clear\");" for Linux/Mac
+            break;
+        default:
+            cout << "Enter a valid option!" << endl;
+        }
+    } while (option != 0);
+
+    return 0;
+}
+
+
